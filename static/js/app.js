@@ -33,7 +33,7 @@ function getFile(el, title) {
     'tileSize': 512,
     'zoomOffset': -1
   }).addTo(map);
-  fetch('/static/js/city.geojson')
+  fetch('static/js/city.geojson')
     .then(function(response) {
       return response.json()
     })
