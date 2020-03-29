@@ -31,7 +31,8 @@ function getFile(el, title) {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     'tileSize': 512,
-    'zoomOffset': -1
+    'zoomOffset': -1,
+    'maxZoom': 16
   }).addTo(map);
   fetch('static/js/city.geojson')
     .then(function(response) {
