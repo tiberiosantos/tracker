@@ -21,25 +21,25 @@
           <table>
             <thead>
               <tr>
-                <th>Situação</th>
-                <th>Casos</th>
+                <th>Caso</th>
+                <th>Quantidade</th>
               </tr>
             </thead>
             <tbody>
               <tr class="blue">
-                <th><i class="fas fa-microscope"></i> Suspeitos</th>
-                <td id="suspects"></td>
+                <th><i class="fas fa-head-side-mask"></i> Leves</th>
+                <td id="milds"></td>
               </tr>
               <tr class="orange">
-                <th><i class="fas fa-virus"></i> Confirmados</th>
-                <td id="confirmations"></td>
+                <th><i class="fas fa-procedures"></i> Graves</th>
+                <td id="serious"></td>
               </tr>
               <tr class="green">
-                <th><i class="fas fa-heart"></i> Recuperados</th>
+                <th><i class="fas fa-male"></i> Recuperados</th>
                 <td id="recoveries"></td>
               </tr>
               <tr class="red">
-                <th><i class="fas fa-cross"></i> Fatalidades</th>
+                <th><i class="fas fa-book-medical"></i> Fatalidades</th>
                 <td id="fatalities"></td>
               </tr>
             </tbody>
@@ -53,6 +53,8 @@
   </div>
   <script src="static/js/leaflet.min.js" charset="utf-8"></script>
   <script src="static/js/leaflet.extra-markers.min.js" charset="utf-8"></script>
+  <script src="static/js/esri-leaflet.js" charset="utf-8"></script>
+  <script src="static/js/esri-leaflet-geocoder.js" charset="utf-8"></script>
   <script src="static/js/papaparse.min.js" charset="utf-8"></script>
   <script src="static/js/app.js" charset="utf-8"></script>
 </body>

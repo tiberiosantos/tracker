@@ -58,6 +58,7 @@ td, th {
 }
 .caption {
   font-weight: bolder;
+  font-size: 0.85rem;
   margin-bottom: 15px !important;
   text-align: center;
 }
@@ -68,8 +69,16 @@ td, th {
 .container {
   margin: 0 0.8rem;
 }
-.extra-marker .svg-inline--fa, .extra-marker i { font-weight: bolder }
-.leaflet-popup-content { line-height: 0 }
+.extra-marker .svg-inline--fa, .extra-marker i.fa, .extra-marker i.fab, .extra-marker i.fas, .extra-marker i.far, .extra-marker i.fal {
+  margin-top: 10px;
+}
+.extra-marker .svg-inline--fa, .extra-marker i {
+  font-size: 16px !important;
+}
+.leaflet-container {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size: 0.8rem;
+}
 .leaflet-popup-content p { margin: 10px 0 }
 .leaflet-popup-content-wrapper { border-radius: 5px }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
