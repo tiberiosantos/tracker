@@ -107,8 +107,10 @@
                 }
               }
             })
-            let sel = document.getElementById(data.layers[row.CASO].text);
+            let sel = document.getElementById(data.layers[row.CASO].text),
+              total = document.getElementById('total');
             sel.textContent = (Number(sel.textContent) || 0) + 1;
+            total.textContent = (Number(total.textContent) || 0) + 1;
           })
         resolve(true)
       })

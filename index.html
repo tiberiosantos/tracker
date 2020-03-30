@@ -29,21 +29,27 @@
             <tbody>
               <tr class="blue">
                 <th><i class="fas fa-head-side-mask"></i> Leves</th>
-                <td id="milds"></td>
+                <td><b id="milds"></b></td>
               </tr>
               <tr class="orange">
                 <th><i class="fas fa-procedures"></i> Graves</th>
-                <td id="serious"></td>
+                <td><b id="serious"></b></td>
               </tr>
               <tr class="green">
                 <th><i class="fas fa-male"></i> Recuperados</th>
-                <td id="recoveries"></td>
+                <td><b id="recoveries"></b></td>
               </tr>
               <tr class="red">
                 <th><i class="fas fa-book-medical"></i> Fatalidades</th>
-                <td id="fatalities"></td>
+                <td><b id="fatalities"></b></td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <th>Total</th>
+                <td><b id="total"></b></td>
+              </tr>
+            </tfoot>
           </table>
           <span id="download" class="btn" data-href="https://docs.google.com/spreadsheets/d/1CUrQfbEY5PppSg6onimuDfzF0gvvRGp1FfbLdlSj7Nc/export?format=csv&id=1CUrQfbEY5PppSg6onimuDfzF0gvvRGp1FfbLdlSj7Nc" title="Baixar Relatório" onclick="getFile(this, 'Relatório')">
             <i class="fas fa-download"></i> Baixar Relatório

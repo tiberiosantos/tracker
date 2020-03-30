@@ -85,16 +85,16 @@ td, th {
   background: #eee;
   color: #333;
 }
-.orange { color: #f39c12; font-weight: bold }
-.blue { color: #3498db; font-weight: bold }
-.green { color: #00bc8c; font-weight: bold }
+.orange { color: #f39c12 }
+.blue { color: #3498db }
+.green { color: #00bc8c }
 .title {
   margin-top: 1rem;
   margin-bottom: .5rem;
   font-weight: 300;
   font-size: 3rem;
 }
-.red { color: #e74c3c; font-weight: bold }
+.red { color: #e74c3c }
 .row {
   display: flex;
   flex-direction: row;
