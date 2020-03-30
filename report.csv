@@ -1,4 +1,11 @@
-UNIDADE,GEOCODE,SUSPEITOS,CONFIRMADOS,RECUPERADOS,FATALIDADES
-AME,"geo:-23.58960,-48.04423?z=19",10,10,0,0
-Hospital Doutor Léo Orsi Bernardes,"geo:-23.58438,-48.04522?z=19",3,3,0,0
-Unidade Básica de Saúde Doutor Tuyoshi Honma,"geo:-23.57348,-48.02446?z=19",2,1,1,0
+PACIENTE,IDADE,ENDEREÇO,CASO,SITUAÇÃO
+Erick Cauã Pietro Costa,65,"Saldanha Marinho, 241, Centro, Itapetininga, São Paulo",Leve,Síndrome gripal
+Cláudia Mariah Lopes,62,"Coronel Clementino Matias de Oliveira, 30, Centro, Itapetininga, São Paulo",Grave,Síndrome gripal com dispneia
+Maitê Beatriz Lúcia Gomes,65,"General Carneiro, 476, Centro, Itapetininga, São Paulo",Leve,Síndrome gripal
+Igor Tiago Brito,35,"Campos Salles, 217, Centro, Itapetininga, São Paulo",Fatalidade,Pneumonia
+César Anderson Carlos Baptista,68,"Benjamin Constant, 188, Centro, Itapetininga, São Paulo",Leve,Síndrome gripal
+Pedro Henrique Bryan Araújo,37,"Monsenhor Soares, 39, Centro, Itapetininga, São Paulo",Fatalidade,Pneumonia
+Lara Francisca Novaes,69,"Silva Jardim, 92, Centro, Itapetininga, São Paulo",Leve,Síndrome gripal
+Lúcia Benedita Baptista,42,"Professor Francisco Valio, 378, Centro, Itapetininga, São Paulo",Grave,Síndrome gripal com dispneia
+Josefa Clara da Conceição,74,"Rua João Evangelista, 448, Centro, Itapetininga, São Paulo",Leve,Síndrome gripal
+Eliane Silvana Malu Almeida,69,"Doutor Virgilio de Andrade, 29, Centro, Itapetininga, São Paulo",Leve,Síndrome gripal
