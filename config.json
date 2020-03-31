@@ -1,5 +1,22 @@
 {
   "report": "report.csv",
+  "filters": [
+    {"DATA DA NOTIFICAÇÃO": "text"},
+    {"NÚMERO DA NOTIFICAÇÃO": "text"},
+    {"UNIDADE NOTIFICADORA": "text"},
+    {"DATA DO SINTOMA": "text"},
+    {"NOME": "text"},
+    {"DATA DE NASCIMENTO": "text"},
+    {"SEXO": ["Masculino", "Feminino"]},
+    {"ENDEREÇO": "text"},
+    {"MUNICÍPIO": "text"},
+    {"TELEFONE": "text"},
+    {"PROFISSIONAL DA SAÚDE": ["Sim", "Não"]},
+    {"COMORBIDADE": ["Sim", "Não"]},
+    {"CONTATOS": "text"},
+    {"STATUS": ["Suspeito", "Confirmado", "Descartado"]},
+    {"SITUAÇÃO": ["Internado", "UTI", "Curado", "Óbito"]}
+  ],
   "boundries_style": {
     "color": "#8395a7",
     "weight": 5,

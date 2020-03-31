@@ -4,17 +4,46 @@
   let data = 'config.json'
 
   let methods = {
-    format(field, format) {
+    collapse(elm, cmd) {
+      const selector = elm.getAttribute('data-target')
+      const fnmap = {
+        'toggle': 'toggle',
+        'show': 'add',
+        'hide': 'remove'
+      }
+
+      const collapser = (selector, cmd) => {
+        const targets = Array.from(document.querySelectorAll(selector))
+        targets.forEach(target => {
+          target.classList[fnmap[cmd]]('show')
+        })
+      }
+      collapser(selector, cmd)
+    },
+
+    createMap() {
+      if (data.hasOwnProperty('map')) data.map.remove()
+      let map = L.map('map'),
+        tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '<a href="https://www.esri.com/">ESRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 18,
+          tileSize: 512,
+          zoomOffset: -1
+        }).addTo(map)
+      return map
+    },
+
+    format(item, format) {
       switch(format) {
         case 'age':
-          field = new Date(...field.split('/').map(Number).reverse())
+          item = new Date(...item.split('/').map(Number).reverse())
           today = new Date()
-          return Math.floor(Math.ceil(Math.abs(field.getTime() - today.getTime()) / (1000 * 3600 * 24)) / 365.25)
+          return Math.floor(Math.ceil(Math.abs(item.getTime() - today.getTime()) / (1000 * 3600 * 24)) / 365.25)
           break;
       }
     },
 
-    getData() {
+    getData(filter) {
       return new Promise((resolve, reject) => {
         Papa.parse(data.report, {
           downloadRequestHeaders: {
@@ -24,7 +53,16 @@
           header: true,
           skipEmptyLines: true,
           complete: function(result) {
-            resolve(result.data)
+            result = result.data
+            if (filter) {
+              result = result.filter(row => {
+                return Object.keys(filter).every(column => {
+                  var criteria = filter[column].toLowerCase()
+                  return String(row[column]).toLowerCase().indexOf(criteria) > -1
+                })
+              })
+            }
+            resolve(result)
           }
         })
       })
@@ -51,13 +89,30 @@
       })
     },
 
-    plotData(sheet, map) {
-      return new Promise((resolve, reject) => {
-        let results = document.getElementById('results'),
-          tables = {}
-        data.tables.forEach(e => {
-          let table = document.createElement('table')
-          table.innerHTML = `
+    renderFilters() {
+      let filters = document.getElementById('filters'),
+        template = ''
+      data.filters.forEach(filter => {
+        let id = Object.keys(filter).pop(),
+          type = filter[id]
+        template += `
+        <div class="column column-1 form-group">
+          <label for="${id}">${id}</label>
+          ${!(type instanceof Array) ? `<input id="${id}" type="text" name="${id}">` :
+          `<select id="${id}" name="${id}">
+          <option value selected></option>
+          ${type.map(item => `<option value="${item}">${item}</option>`).join('')}
+          </select>`}
+        </div>`
+      })
+      filters.innerHTML = template
+    },
+
+    renderTables() {
+      let tables = {}
+      data.tables.forEach(e => {
+        let table = document.createElement('table')
+        table.innerHTML = `
             <thead>
               <tr>
                 <th>${e.title_field}</th>
@@ -72,7 +127,7 @@
                   `<th><i class="fas ${i.icon} blue"></i> ${i.value}</th>`}
               <td id="${i.value}"></td>
             </tr>
-            `).join('')}
+          `).join('')}
             </tbody>
             <tfoot>
               <tr>
@@ -80,10 +135,19 @@
                 <td id="total"></td>
               </tr>
             </tfoot>`
-          table = results.appendChild(table)
-          tables[e.title_field] = table
-        })
+        table = results.appendChild(table)
+        tables[e.title_field] = table
+      })
+      return tables
+    },
 
+    plotData(sheet, map, filters) {
+      return new Promise((resolve, reject) => {
+        let results = document.getElementById('results'),
+          count = document.getElementById('count'),
+          tables = !filters && methods.renderTables() 
+
+        count.textContent = sheet.length
         sheet.forEach(row => {
           let marker_icon = data,
             marker_color = data,
@@ -107,20 +171,24 @@
           data.marker.color.forEach(e => marker_color = marker_color[e])
           marker_icon = marker_icon.items.filter(e => {
             if (row[marker_icon.title_field] == e.value) {
-              let value = tables[marker_icon.title_field].querySelector(`#${e.value}`),
-                total = tables[marker_icon.title_field].querySelector('#total')
-              value.textContent = (Number(value.textContent) || 0) + 1
-              total.textContent = (Number(total.textContent) || 0) + 1
+              if (tables) {
+                let value = tables[marker_icon.title_field].querySelector(`#${e.value}`),
+                  total = tables[marker_icon.title_field].querySelector('#total')
+                value.textContent = (Number(value.textContent) || 0) + 1
+                total.textContent = (Number(total.textContent) || 0) + 1
+              }
               return true
             }
           }).pop().icon || 'fa-number'
 
           marker_color = marker_color.items.filter(e => {
             if (row[marker_color.title_field] == e.value) {
-              let value = tables[marker_color.title_field].querySelector(`#${e.value}`),
-                total = tables[marker_color.title_field].querySelector('#total')
-              value.textContent = (Number(value.textContent) || 0) + 1
-              total.textContent = (Number(total.textContent) || 0) + 1
+              if (tables) {
+                let value = tables[marker_color.title_field].querySelector(`#${e.value}`),
+                  total = tables[marker_color.title_field].querySelector('#total')
+                value.textContent = (Number(value.textContent) || 0) + 1
+                total.textContent = (Number(total.textContent) || 0) + 1
+              }
               return true
             }
           }).pop().color || 'black'
@@ -163,29 +231,35 @@
         })
     },
 
-    init(scope) {
-      let self = this,
-        map = L.map('map'),
-        tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '<a href="https://www.esri.com/">ESRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          maxZoom: 18,
-          tileSize: 512,
-          zoomOffset: -1
-        }).addTo(map)
+    projectData(filters) {
+      data['map'] = createMap()
+      getData(filters)
+        .then(sheet => plotData(sheet, data.map, filters))
+        .then(success => {
+          setBoundries(data.map)
+        })
+    },
 
+    filterData(form) {
+      let filters = {}
+      form = new FormData(form)
+      Array.from(form.entries()).forEach(e => {
+        if (e[1]) filters[e[0]] = e[1]
+      })
+      projectData(filters)
+    },
+
+    init(scope) {
+      let self = this
       fetch(data)
         .then(response => response.json())
         .then(json => {
           Object.keys(methods).forEach(m => scope[m] = self[m])
           data = json
-          getData()
-            .then(sheet => plotData(sheet, map))
-            .then(success => {
-              setBoundries(map)
-            })
+          projectData()
+          renderFilters()
         })
     }
   }
-
   return methods.init(this)
 }).call((this))

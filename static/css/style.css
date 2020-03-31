@@ -1,3 +1,10 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+}
 body {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   font-size: 1rem;
@@ -6,10 +13,6 @@ body {
   color: #212529;
   padding: 0;
   margin: 0;
-}
-html, body {
-  height: 100%;
-  width: 100%;
 }
 table {
   border-collapse: collapse;
@@ -35,6 +38,29 @@ td, th {
   border-top: 1px solid #dee2e6;
   text-align: left;
 }
+a, button, input[type="reset"] {
+  border-style: none;
+  outline: 0
+}
+label, legend {
+  display: block;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+input[type="text"]:focus, select:focus {
+  border: 1px solid #00bc8c;
+  outline: 0;
+}
+input[type="text"], select {
+  height: 38px;
+  padding: 6px 10px;
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
+}
 #map {
   border: 1px solid rgba(0,0,0,.05);
   height: 80vh;
@@ -42,19 +68,31 @@ td, th {
 .btn {
   cursor: pointer;
   display: inline-block;
-  padding: 0.7em 1.4em;
-  margin: 0.3em;
-  border-radius: 0.15em;
+  padding: 0.7rem 1.4rem;
+  margin: 0.3rem;
+  border-radius: 0.15rem;
   box-sizing: border-box;
   text-decoration: none;
   font-family: Lato, sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  color: #fff;
-  background-color: #00bc8c;
-  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  color: #212529;
+  background-color: #eee;
+  box-shadow: inset 0 -0.6rem 0 -0.35rem rgba(0,0,0,0.17);
   text-align: center;
   position: relative;
+}
+.btn.btn-green {
+  background-color: #00bc8c;
+  color: #fff;
+}
+.btn.btn-blue {
+  background-color: #3498db;
+  color: #fff;
+}
+.btn.btn-orange {
+  background-color: #f39c12;
+  color: #fff;
 }
 .blue { color: #3498db }
 .caption {
@@ -72,15 +110,20 @@ td, th {
   flex-direction: column;
   flex-basis: 100%;
 }
-.container {
-  margin: 0 0.8rem;
+.container { margin: 0 0.8rem; }
+.collapse {
+  display: block;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
 }
-.extra-marker .svg-inline--fa, .extra-marker i.fa, .extra-marker i.fab, .extra-marker i.fas, .extra-marker i.far, .extra-marker i.fal {
-  margin-top: 10px;
+.collapse.show {
+  max-height: 99em;
+  transition: max-height .5s ease-in-out;
 }
-.extra-marker .svg-inline--fa, .extra-marker i {
-  font-size: 16px !important;
-}
+.extra-marker .svg-inline--fa, .extra-marker i.fa, .extra-marker i.fab, .extra-marker i.fas, .extra-marker i.far, .extra-marker i.fal { margin-top: 10px; }
+.extra-marker .svg-inline--fa, .extra-marker i { font-size: 16px !important; }
+.form-group { margin: .5rem }
 .green { color: #00bc8c }
 .leaflet-container {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -93,9 +136,8 @@ td, th {
   color: #333;
 }
 .orange { color: #f39c12 }
-.navbar {
-  background-color: #343a40;
-}
+.navbar { background-color: #343a40; }
+.navbar-light { background-color: #eee }
 .title {
   margin-top: 1rem;
   margin-bottom: .5rem;
@@ -110,10 +152,6 @@ td, th {
   width: 100%;
 }
 @media screen and (min-width: 800px) {
-  .column {
-    flex: 1
-  }
-  .column-4 {
-    flex: 4
-  }
+  .column { flex: 1 }
+  .column-4 { flex: 4 }
 }

@@ -17,9 +17,32 @@
     <h1><i class="orange fas fa-map-marked-alt"></i> Tracker</h1>
     <div class="card">
       <div class="navbar row">
-        <span id="download" class="btn" title="Baixar Relatório" onclick="getFile(this, 'Relatório')">
+        <a id="download" class="btn btn-green" href="#" title="Baixar Relatório" onclick="getFile(this, 'Relatório')">
           <i class="fas fa-download"></i>
-        </span>
+        </a>
+        <a id="panel" class="btn btn-blue" href="#" title="Filtros" data-target=".collapse.options" onclick="collapse(this, 'toggle')">
+          <i class="fas fa-filter"></i>
+        </a>
+      </div>
+      <div class="row navbar-light">
+        <div class="collapse options" id="options">
+          <form action="" method="post" onsubmit="filterData(this); return false">
+            <div id="filters" class="row"></div>
+            <div class="row">
+              <div class="column column-1 form-group">
+                <label for="filters">
+                  <span id="count"></span> Resultados Encontrados
+                </label>
+              </div>
+              <button class="btn btn-blue" type="reset" title="Limpar" data-target=".collapse.options" onclick="projectData(true); collapse(this, 'toggle')">
+                <i class="fas fa-times"></i>
+              </button>
+              <button class="btn btn-blue" type="submit" title="Pesquisar">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="row">
         <div id="map" class="column column-4"></div>
