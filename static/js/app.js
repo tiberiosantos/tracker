@@ -13,6 +13,7 @@
           break;
       }
     },
+
     getData() {
       return new Promise((resolve, reject) => {
         Papa.parse(data.report, {
@@ -28,6 +29,7 @@
         })
       })
     },
+
     getFile(el, title) {
       var link = null,
         proxy = document.createElement('a')
@@ -48,6 +50,7 @@
         proxy.click()
       })
     },
+
     plotData(sheet, map) {
       return new Promise((resolve, reject) => {
         let results = document.getElementById('results'),
@@ -66,7 +69,7 @@
             <tr>
               ${i.color ?
                   `<th class="${i.color}">${i.value}</th>` :
-                  `<th><i class="fas ${i.icon}"></i> ${i.value}</th>`}
+                  `<th><i class="fas ${i.icon} blue"></i> ${i.value}</th>`}
               <td id="${i.value}"></td>
             </tr>
             `).join('')}
@@ -80,6 +83,7 @@
           table = results.appendChild(table)
           tables[e.title_field] = table
         })
+
         sheet.forEach(row => {
           let marker_icon = data,
             marker_color = data,
@@ -110,6 +114,7 @@
               return true
             }
           }).pop().icon || 'fa-number'
+
           marker_color = marker_color.items.filter(e => {
             if (row[marker_color.title_field] == e.value) {
               let value = tables[marker_color.title_field].querySelector(`#${e.value}`),
@@ -119,6 +124,7 @@
               return true
             }
           }).pop().color || 'black'
+
           L.esri.Geocoding.geocode()
             .text(row[data.marker.location_field])
             .run((err, results, response) => {
@@ -147,6 +153,7 @@
         resolve(true)
       })
     },
+
     setBoundries(map) {
       fetch('static/js/city.geojson')
         .then(response => response.json())
@@ -155,6 +162,7 @@
           map.fitBounds(geojson.getBounds());
         })
     },
+
     init(scope) {
       let self = this,
         map = L.map('map'),
@@ -178,5 +186,6 @@
         })
     }
   }
+
   return methods.init(this)
 }).call((this))
