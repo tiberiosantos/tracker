@@ -43,7 +43,7 @@ td, th {
   cursor: pointer;
   display: inline-block;
   padding: 0.7em 1.4em;
-  margin: 0 0.3em;
+  margin: 0.3em;
   border-radius: 0.15em;
   box-sizing: border-box;
   text-decoration: none;
@@ -56,6 +56,7 @@ td, th {
   text-align: center;
   position: relative;
 }
+.blue { color: #3498db }
 .caption {
   font-weight: bolder;
   font-size: 0.85rem;
@@ -66,6 +67,11 @@ td, th {
   border: 1px solid rgba(0,0,0,.2);
   border-radius: 5px;
 }
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+}
 .container {
   margin: 0 0.8rem;
 }
@@ -75,6 +81,7 @@ td, th {
 .extra-marker .svg-inline--fa, .extra-marker i {
   font-size: 16px !important;
 }
+.green { color: #00bc8c }
 .leaflet-container {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   font-size: 0.8rem;
@@ -86,8 +93,9 @@ td, th {
   color: #333;
 }
 .orange { color: #f39c12 }
-.blue { color: #3498db }
-.green { color: #00bc8c }
+.navbar {
+  background-color: #343a40;
+}
 .title {
   margin-top: 1rem;
   margin-bottom: .5rem;
@@ -100,11 +108,6 @@ td, th {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-}
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
 }
 @media screen and (min-width: 800px) {
   .column {

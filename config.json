@@ -1,0 +1,91 @@
+{
+  "report": "report.csv",
+  "boundries_style": {
+    "color": "#8395a7",
+    "weight": 5,
+    "opacity": 0.65
+  },
+  "popup": {
+    "title_field": "NOME",
+    "title_icon": "fa-user",
+    "title_color": "green",
+    "content": [
+      {
+        "color": "blue",
+        "data_field": "DATA DE NASCIMENTO",
+        "icon": "fa-award",
+        "title": "Idade",
+        "format": "age"
+      },
+      {
+        "color": "blue",
+        "data_field": "SEXO",
+        "icon": "fa-venus-mars",
+        "title": "Sexo"
+      },
+      {
+        "color": "blue",
+        "data_field": "ENDEREÇO",
+        "icon": "fa-venus-mars",
+        "title": "Endereço"
+      },
+      {
+        "color": "blue",
+        "data_field": "CONTATOS",
+        "icon": "fa-people-arrows",
+        "title": "Contatos"
+      },
+      {
+        "color": "blue",
+        "data_field": "PROFISSIONAL DA SAÚDE",
+        "icon": "fa-user-md",
+        "title": "Profissional da Saúde"
+      }
+    ]
+  },
+  "tables": [
+    {
+      "title_field": "STATUS",
+      "items": [
+        {
+          "value": "Descartado",
+          "color": "green"
+        },
+        {
+          "value": "Suspeito",
+          "color": "orange"
+        },
+        {
+          "value": "Confirmado",
+          "color": "red"
+        }
+      ]
+    },
+    {
+      "title_field": "SITUAÇÃO",
+      "items": [
+        {
+          "value": "Curado",
+          "icon": "fa-heart"
+        },
+        {
+          "value": "Internado",
+          "icon": "fa-clinic-medical"
+        },
+        {
+          "value": "UTI",
+          "icon": "fa-procedures"
+        },
+        {
+          "value": "Óbito",
+          "icon": "fa-cross"
+        }
+      ]
+    }
+  ],
+  "marker": {
+    "location_field": "ENDEREÇO",
+    "color": ["tables", 0],
+    "icon": ["tables", 1]
+  }
+}

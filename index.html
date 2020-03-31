@@ -13,47 +13,17 @@
   <link rel="stylesheet" href="static/css/style.css" charset="utf-8">
 </head>
 <body>
-  <div class="container">
+  <div id="app" class="container">
     <h1><i class="orange fas fa-map-marked-alt"></i> Tracker</h1>
     <div class="card">
+      <div class="navbar row">
+        <span id="download" class="btn" title="Baixar Relatório" onclick="getFile(this, 'Relatório')">
+          <i class="fas fa-download"></i>
+        </span>
+      </div>
       <div class="row">
         <div id="map" class="column column-4"></div>
-        <div id="result" class="column">
-          <table>
-            <thead>
-              <tr>
-                <th>Caso</th>
-                <th>Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="blue">
-                <th><i class="fas fa-head-side-mask"></i> Leves</th>
-                <td><b id="milds"></b></td>
-              </tr>
-              <tr class="orange">
-                <th><i class="fas fa-procedures"></i> Graves</th>
-                <td><b id="serious"></b></td>
-              </tr>
-              <tr class="green">
-                <th><i class="fas fa-male"></i> Recuperados</th>
-                <td><b id="recoveries"></b></td>
-              </tr>
-              <tr class="red">
-                <th><i class="fas fa-book-medical"></i> Fatalidades</th>
-                <td><b id="fatalities"></b></td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>Total</th>
-                <td><b id="total"></b></td>
-              </tr>
-            </tfoot>
-          </table>
-          <span id="download" class="btn" data-href="https://docs.google.com/spreadsheets/d/1CUrQfbEY5PppSg6onimuDfzF0gvvRGp1FfbLdlSj7Nc/export?format=csv&id=1CUrQfbEY5PppSg6onimuDfzF0gvvRGp1FfbLdlSj7Nc" title="Baixar Relatório" onclick="getFile(this, 'Relatório')">
-            <i class="fas fa-download"></i> Baixar Relatório
-          </span>
+        <div id="results" class="column">
         </div>
       </div>
     </div>
