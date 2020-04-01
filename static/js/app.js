@@ -226,8 +226,8 @@
     setBoundries(map) {
       fetch('static/js/city.geojson')
         .then(response => response.json())
-        .then(data => {
-          let geojson = L.geoJSON(data, {style: data.style}).addTo(map);
+        .then(json => {
+          let geojson = L.geoJSON(json, {style: data.boundries_style}).addTo(map);
           map.fitBounds(geojson.getBounds());
         })
     },

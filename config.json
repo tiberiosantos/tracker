@@ -18,7 +18,7 @@
     {"SITUAÇÃO": ["Internado", "UTI", "Curado", "Óbito"]}
   ],
   "boundries_style": {
-    "color": "#8395a7",
+    "color": "#aaa",
     "weight": 5,
     "opacity": 0.65
   },
