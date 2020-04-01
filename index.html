@@ -17,7 +17,7 @@
     <h1><i class="orange fas fa-map-marked-alt"></i> Tracker</h1>
     <div class="card">
       <div class="navbar row">
-        <a id="download" class="btn btn-green" href="#" title="Baixar Relatório" onclick="getFile(this, 'Relatório')">
+        <a id="download" class="btn btn-green" href="#" title="Baixar Relatório (CSV)" onclick="getFile(this, 'Relatório')">
           <i class="fas fa-download"></i>
         </a>
         <a id="panel" class="btn btn-blue" href="#" title="Filtros" data-target=".collapse.options" onclick="collapse(this, 'toggle')">
@@ -34,7 +34,7 @@
                   <span id="count"></span> Resultados Encontrados
                 </label>
               </div>
-              <button class="btn btn-blue" type="reset" title="Limpar" data-target=".collapse.options" onclick="projectData(true); collapse(this, 'toggle')">
+              <button class="btn" type="reset" title="Limpar" data-target=".collapse.options" onclick="projectData(true); collapse(this, 'toggle')">
                 <i class="fas fa-times"></i>
               </button>
               <button class="btn btn-blue" type="submit" title="Pesquisar">

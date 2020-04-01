@@ -23,9 +23,9 @@
     "opacity": 0.65
   },
   "popup": {
-    "title_field": "NOME",
-    "title_icon": "fa-user",
-    "title_color": "green",
+    "title_field": "",
+    "title_icon": "",
+    "title_color": "",
     "content": [
       {
         "color": "blue",
@@ -39,12 +39,6 @@
         "data_field": "SEXO",
         "icon": "fa-venus-mars",
         "title": "Sexo"
-      },
-      {
-        "color": "blue",
-        "data_field": "ENDEREÇO",
-        "icon": "fa-venus-mars",
-        "title": "Endereço"
       },
       {
         "color": "blue",

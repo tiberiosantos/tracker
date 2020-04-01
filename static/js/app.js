@@ -78,15 +78,15 @@
           Origin: location.origin
         }),
         cors: true
-      }).then(function(response) {
-        return response.blob()
-      }).then(function(blob) {
-        if (link) URL.revokeObjectURL(link)
-        link = URL.createObjectURL(blob)
-        proxy.href = link
-        proxy.download = `${title}_${date_prefix}.csv`
-        proxy.click()
       })
+        .then(response => response.blob())
+        .then(blob => {
+          if (link) URL.revokeObjectURL(link)
+          link = URL.createObjectURL(blob)
+          proxy.href = link
+          proxy.download = `${title}_${date_prefix}.csv`
+          proxy.click()
+        })
     },
 
     renderFilters() {
@@ -153,10 +153,11 @@
             marker_color = data,
             popup = data.popup,
             popup_template = `
-              <p class="caption">
+            ${data.popup.title_field &&
+              `<p class="caption">
                 <i class="fas ${popup.title_icon} ${popup.title_color}"></i>
                   ${row[data.popup.title_field]}
-              </p>
+              </p>`}
               ${popup.content.map(e => {
                 if (e.hasOwnProperty('format')) {
                   row[e.data_field] = methods.format(row[e.data_field], e.format)
