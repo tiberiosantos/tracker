@@ -1,5 +1,5 @@
 DATA DA NOTIFICAÇÃO,NÚMERO DA NOTIFICAÇÃO,UNIDADE NOTIFICADORA,DATA DO SINTOMA,NOME,DATA DE NASCIMENTO,SEXO,ENDEREÇO,MUNICÍPIO,TELEFONE,PROFISSIONAL DA SAÚDE,COMORBIDADE,CONTATOS,SITUAÇÃO,STATUS
-19/03/2020,43911,USF CAPÃO ALTO,16/03/2020,Erick Cauã Pietro Costa,22/12/1955,Masculino,"Saldanha Marinho, 241, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2525-0325,Sim,Sim,18,Internado,Suspeito
+19/03/2020,43911,USF CAPÃO ALTO,16/03/2020,Erick Cauã Pietro Costa,22/12/1955,Masculino,"Saldanha Marinho, 241, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2525-0325,Sim,Sim,18,Domicílio,Suspeito
 16/03/2020,43907,USF MORRO DO ALTO,15/03/2020,Cláudia Mariah Lopes,17/06/1958,Feminino,"Coronel Clementino Matias de Oliveira, 30, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2995-9114,Não,Sim,10,UTI,Confirmado
 12/03/2020,43905,USF TUPY,11/03/2020,Maitê Beatriz Lúcia Gomes,24/03/1955,Feminino,"General Carneiro, 476, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2698-8159,Não,Sim,30,Curado,Descartado
 18/03/2020,43909,PA JARDIM MESQUITA,17/03/2020,Igor Tiago Brito,05/09/1985,Masculino,"Campos Salles, 217, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3794-7422,Não,Sim,6,Óbito,Confirmado

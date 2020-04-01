@@ -15,7 +15,7 @@
     {"COMORBIDADE": ["Sim", "Não"]},
     {"CONTATOS": "text"},
     {"STATUS": ["Suspeito", "Confirmado", "Descartado"]},
-    {"SITUAÇÃO": ["Internado", "UTI", "Curado", "Óbito"]}
+    {"SITUAÇÃO": ["Domicílio", "Internado", "UTI", "Curado", "Óbito"]}
   ],
   "boundries_style": {
     "color": "#aaa",
@@ -76,12 +76,16 @@
       "title_field": "SITUAÇÃO",
       "items": [
         {
+          "value": "Domicílio",
+          "icon": "fa-home"
+        },
+        {
           "value": "Curado",
           "icon": "fa-heart"
         },
         {
           "value": "Internado",
-          "icon": "fa-clinic-medical"
+          "icon": "fa-hospital-alt"
         },
         {
           "value": "UTI",
