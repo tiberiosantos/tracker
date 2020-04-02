@@ -1,0 +1,9 @@
+TOTAL DE CASOS,,,,
+,,,,
+SITUAÇÃO,QUANTIDADE,,STATUS,QUANTIDADE
+Domicílio,2,,Descartado,3
+Curado,1,,Suspeito,2
+Internado,3,,Confirmado,5
+UTI,2,,Total,10
+Óbito,2,,,
+Total,10,,Letalidade,"40,00%"

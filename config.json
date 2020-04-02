@@ -1,5 +1,5 @@
 {
-  "report": "report.csv",
+  "report": "data/Relatório.csv",
   "filters": [
     {"DATA DA NOTIFICAÇÃO": "text"},
     {"NÚMERO DA NOTIFICAÇÃO": "text"},
