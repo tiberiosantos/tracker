@@ -65,27 +65,6 @@
       })
     },
 
-    getFile(el, title) {
-      var link = null,
-        proxy = document.createElement('a')
-      date_prefix = new Date().toLocaleString().match(/\d+/g).join('')
-
-      fetch(data.report, {
-        headers: new Headers({
-          Origin: location.origin
-        }),
-        cors: true
-      })
-        .then(response => response.blob())
-        .then(blob => {
-          if (link) URL.revokeObjectURL(link)
-          link = URL.createObjectURL(blob)
-          proxy.href = link
-          proxy.download = `${title}_${date_prefix}.csv`
-          proxy.click()
-        })
-    },
-
     renderFilters() {
       let filters = document.getElementById('filters'),
         template = ''
