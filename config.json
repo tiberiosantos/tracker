@@ -1,5 +1,6 @@
 {
     "report": "data/Relatório.csv",
+    "heat_layer": "Contaminações",
     "filters": [
         {"DATA DA NOTIFICAÇÃO": "text"},
         {"NÚMERO DA NOTIFICAÇÃO": "text"},
@@ -60,15 +61,18 @@
             "items": [
                 {
                     "value": "Descartado",
-                    "color": "green"
+                    "color": "green",
+                    "weight": 0.2
                 },
                 {
                     "value": "Suspeito",
-                    "color": "orange"
+                    "color": "orange",
+                    "weight": 0.8
                 },
                 {
                     "value": "Confirmado",
-                    "color": "red"
+                    "color": "red",
+                    "weight": 1.0
                 }
             ]
         },

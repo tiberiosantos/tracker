@@ -22,12 +22,12 @@
     },
 
     createMap() {
-      if (data.hasOwnProperty('map')) data.map.remove()
-      let map = L.map('map'),
+      if (data.hasOwnProperty('map')) data.map.base.remove()
+      let base = L.map('map'),
         tile = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
           attribution: '<a href="https://www.esri.com/">ESRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map)
-      return map
+        }).addTo(base)
+      return {'base': base, 'tile': tile}
     },
 
     format(item, format) {
@@ -84,6 +84,13 @@
       filters.innerHTML = template
     },
 
+    renderHeatLayer(heatpoints) {
+      let overlay = {}
+      overlay[data.heat_layer] = L.heatLayer(heatpoints, {'radius': 50, 'minOpacity': 0.5})
+      data.map.base.addLayer(overlay[data.heat_layer])
+      L.control.layers(null, overlay).addTo(data.map.base)
+    },
+
     renderTables() {
       let tables = {}
       data.tables.forEach(e => {
@@ -121,7 +128,8 @@
       return new Promise((resolve, reject) => {
         let results = document.getElementById('results'),
           count = document.getElementById('count'),
-          tables = !filters && methods.renderTables() 
+          tables = !filters && methods.renderTables(),
+          heatpoints = []
 
         count.textContent = sheet.length
         sheet.forEach(row => {
@@ -174,7 +182,7 @@
             }
             return false
           })
-          marker_color = marker_color.length ? marker_color.pop().color : 'black'
+          marker_color = marker_color.length ? marker_color.pop() : {"color": 'black', "weight": 0}
 
           L.esri.Geocoding.geocode()
             .text(row[data.marker.location_field])
@@ -184,23 +192,25 @@
               } else {
                 let icon = L.ExtraMarkers.icon({
                   icon: marker_icon,
-                  markerColor: marker_color,
+                  markerColor: marker_color.color,
                   prefix: 'fas'
                 })
-                if (marker_color !== 'black') {
-                  L.marker(results.results[0].latlng, {icon: icon}).addTo(map)
+                if (marker_color.color !== 'black') {
+                  heatpoints.push([results.results[0].latlng.lat, results.results[0].latlng.lng, marker_color.weight])
+                  L.marker(results.results[0].latlng, {'icon': icon}).addTo(map.base)
                     .bindPopup(popup_template)
                     .on('mouseover', function(e) {
                       this.openPopup()
                     })
                     .on('click', function(e) {
-                      map.flyTo(results.results[0].latlng, 18)
+                      map.base.flyTo(results.results[0].latlng, 18)
                       this.openPopup()
                     })
                 }
               }
           })
         })
+        renderHeatLayer(heatpoints)
         resolve(true)
       })
     },
@@ -209,8 +219,8 @@
       fetch('static/js/city.geojson')
         .then(response => response.json())
         .then(json => {
-          let geojson = L.geoJSON(json, {style: data.boundries_style}).addTo(map);
-          map.fitBounds(geojson.getBounds());
+          let geojson = L.geoJSON(json, {style: data.boundries_style}).addTo(map.base);
+          map.base.fitBounds(geojson.getBounds());
         })
     },
 
