@@ -128,21 +128,23 @@
           let marker_icon = data,
             marker_color = data,
             popup = data.popup,
-            popup_template = `
-            ${data.popup.title_field &&
-              `<p class="caption">
+            popup_template = `${
+              data.popup.title_field && `
+              <p class="caption">
                 <i class="fas ${popup.title_icon} ${popup.title_color}"></i>
-                  ${row[data.popup.title_field]}
-              </p>`}
-              ${popup.content.map(e => {
-                if (e.hasOwnProperty('format')) {
-                  row[e.data_field] = methods.format(row[e.data_field], e.format)
-                }
-                return `<span>
-                  <i class="fas ${e.icon} ${e.color}"></i>
-                   <strong>${e.title}</strong>: ${row[e.data_field]}
-                </span><br>`
-              }).join('')}`
+                ${row[data.popup.title_field]}
+              </p>
+            `}
+            ${popup.content.map(e => {
+              if (e.hasOwnProperty('format')) {
+                row[e.data_field] = methods.format(row[e.data_field], e.format)
+              }
+              return `
+              <span>
+                <i class="fas ${e.icon} ${e.color}"></i>
+                <strong>${e.title}</strong>: ${row[e.data_field]}
+              </span><br>
+              `}).join('')}`
 
           data.marker.icon.forEach(e => marker_icon = marker_icon[e])
           data.marker.color.forEach(e => marker_color = marker_color[e])
@@ -156,7 +158,9 @@
               }
               return true
             }
-          }).pop().icon || 'fa-number'
+            return false
+          })
+          marker_icon = marker_icon.length ? marker_icon.pop().icon : 'fa-number'
 
           marker_color = marker_color.items.filter(e => {
             if (row[marker_color.title_field] == e.value) {
@@ -168,7 +172,9 @@
               }
               return true
             }
-          }).pop().color || 'black'
+            return false
+          })
+          marker_color = marker_color.length ? marker_color.pop().color : 'black'
 
           L.esri.Geocoding.geocode()
             .text(row[data.marker.location_field])
@@ -193,7 +199,7 @@
                     })
                 }
               }
-            })
+          })
         })
         resolve(true)
       })

@@ -1,11 +1,11 @@
 DATA DA NOTIFICAÇÃO,NÚMERO DA NOTIFICAÇÃO,UNIDADE NOTIFICADORA,DATA DO SINTOMA,NOME,DATA DE NASCIMENTO,IDADE,SEXO,ENDEREÇO,MUNICÍPIO,TELEFONE,PROFISSIONAL DA SAÚDE,COMORBIDADE,CONTATOS,SITUAÇÃO,STATUS
 10/03/2020,43901,UNIMED ITAPETININGA,09/03/2020,Lara Francisca Novaes,26/04/1951,68,Feminino,"Silva Jardim, 92, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2670-2495,Sim,Sim,5,Internado,Suspeito
 10/03/2020,43901,USF JARDIM FOGAÇA,09/03/2020,Josefa Clara da Conceição,09/12/1946,73,Feminino,"Rua João Evangelista, 448, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3932-2243,Não,Sim,5,Óbito,Confirmado
-12/03/2020,43905,USF TUPY,11/03/2020,Maitê Beatriz Lúcia Gomes,24/03/1955,65,Feminino,"General Carneiro, 476, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2698-8159,Não,Sim,30,Curado,Descartado
-13/03/2020,43906,USF VILA SANTANA,11/03/2020,Lúcia Benedita Baptista,19/03/1978,42,Feminino,"Professor Francisco Valio, 378, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3954-2818,Não,Sim,17,UTI,Confirmado
+12/03/2020,43905,USF TUPY,11/03/2020,Maitê Beatriz Lúcia Gomes,24/03/1955,65,Feminino,"General Carneiro, 476, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2698-8159,Não,Sim,30,Alta,Descartado
+13/03/2020,43906,USF VILA SANTANA,11/03/2020,Lúcia Benedita Baptista,19/03/1978,42,Feminino,"Professor Francisco Valio, 378, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3954-2818,Não,Sim,17,Internado,Confirmado
 14/03/2020,43907,USF MONTE SANTO,13/03/2020,Eliane Silvana Malu Almeida,29/05/1951,68,Feminino,"Rua Doutor Virgílio de Rezende, 29, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3852-3052,Não,Sim,19,Internado,Confirmado
 15/03/2020,43906,USF VILA ARRUDA,15/03/2020,César Anderson Carlos Baptista,01/11/1952,67,Masculino,"Benjamin Constant, 188, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2814-4252,Sim,Sim,12,Internado,Suspeito
-16/03/2020,43907,USF MORRO DO ALTO,15/03/2020,Cláudia Mariah Lopes,17/06/1958,61,Feminino,"Coronel Clementino Matias de Oliveira, 30, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2995-9114,Não,Sim,10,UTI,Confirmado
+16/03/2020,43907,USF MORRO DO ALTO,15/03/2020,Cláudia Mariah Lopes,17/06/1958,61,Feminino,"Coronel Clementino Matias de Oliveira, 30, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2995-9114,Não,Sim,10,Internado,Confirmado
 17/03/2020,43908,USF VILA MAZZEI,14/03/2020,Pedro Henrique Bryan Araújo,13/11/1983,36,Masculino,"Monsenhor Soares, 39, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3628-0319,Não,Sim,8,Óbito,Confirmado
-18/03/2020,43909,PA JARDIM MESQUITA,17/03/2020,Igor Tiago Brito,05/09/1985,34,Masculino,"Campos Salles, 217, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3794-7422,Não,Sim,6,Domicílio,Descartado
-19/03/2020,43911,USF CAPÃO ALTO,16/03/2020,Erick Cauã Pietro Costa,22/12/1955,64,Masculino,"Saldanha Marinho, 241, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2525-0325,Sim,Sim,18,Domicílio,Descartado
+18/03/2020,43909,PA JARDIM MESQUITA,17/03/2020,Igor Tiago Brito,05/09/1985,34,Masculino,"Campos Salles, 217, Centro, Itapetininga, São Paulo",Itapetininga,(15) 3794-7422,Não,Sim,6,Residência,Descartado
+19/03/2020,43911,USF CAPÃO ALTO,16/03/2020,Erick Cauã Pietro Costa,22/12/1955,64,Masculino,"Saldanha Marinho, 241, Centro, Itapetininga, São Paulo",Itapetininga,(15) 2525-0325,Sim,Sim,18,Residência,Descartado

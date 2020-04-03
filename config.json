@@ -1,106 +1,102 @@
 {
-  "report": "data/Relatório.csv",
-  "filters": [
-    {"DATA DA NOTIFICAÇÃO": "text"},
-    {"NÚMERO DA NOTIFICAÇÃO": "text"},
-    {"UNIDADE NOTIFICADORA": "text"},
-    {"DATA DO SINTOMA": "text"},
-    {"NOME": "text"},
-    {"DATA DE NASCIMENTO": "text"},
-    {"SEXO": ["Masculino", "Feminino"]},
-    {"ENDEREÇO": "text"},
-    {"MUNICÍPIO": "text"},
-    {"TELEFONE": "text"},
-    {"PROFISSIONAL DA SAÚDE": ["Sim", "Não"]},
-    {"COMORBIDADE": ["Sim", "Não"]},
-    {"CONTATOS": "text"},
-    {"STATUS": ["Suspeito", "Confirmado", "Descartado"]},
-    {"SITUAÇÃO": ["Domicílio", "Internado", "UTI", "Curado", "Óbito"]}
-  ],
-  "boundries_style": {
-    "color": "#aaa",
-    "weight": 5,
-    "opacity": 0.65
-  },
-  "popup": {
-    "title_field": "",
-    "title_icon": "",
-    "title_color": "",
-    "content": [
-      {
-        "color": "blue",
-        "data_field": "DATA DE NASCIMENTO",
-        "icon": "fa-award",
-        "title": "Idade",
-        "format": "age"
-      },
-      {
-        "color": "blue",
-        "data_field": "SEXO",
-        "icon": "fa-venus-mars",
-        "title": "Sexo"
-      },
-      {
-        "color": "blue",
-        "data_field": "CONTATOS",
-        "icon": "fa-people-arrows",
-        "title": "Contatos"
-      },
-      {
-        "color": "blue",
-        "data_field": "PROFISSIONAL DA SAÚDE",
-        "icon": "fa-user-md",
-        "title": "Profissional da Saúde"
-      }
-    ]
-  },
-  "tables": [
-    {
-      "title_field": "STATUS",
-      "items": [
-        {
-          "value": "Descartado",
-          "color": "green"
-        },
-        {
-          "value": "Suspeito",
-          "color": "orange"
-        },
-        {
-          "value": "Confirmado",
-          "color": "red"
-        }
-      ]
+    "report": "data/Relatório.csv",
+    "filters": [
+        {"DATA DA NOTIFICAÇÃO": "text"},
+        {"NÚMERO DA NOTIFICAÇÃO": "text"},
+        {"UNIDADE NOTIFICADORA": "text"},
+        {"DATA DO SINTOMA": "text"},
+        {"NOME": "text"},
+        {"DATA DE NASCIMENTO": "text"},
+        {"SEXO": ["Masculino", "Feminino"]},
+        {"ENDEREÇO": "text"},
+        {"MUNICÍPIO": "text"},
+        {"TELEFONE": "text"},
+        {"PROFISSIONAL DA SAÚDE": ["Sim", "Não"]},
+        {"COMORBIDADE": ["Sim", "Não"]},
+        {"CONTATOS": "text"},
+        {"STATUS": ["Suspeito", "Confirmado", "Descartado"]},
+        {"SITUAÇÃO": ["Residência", "Internado", "Alta", "Óbito"]}
+    ],
+    "boundries_style": {
+        "color": "#aaa",
+        "weight": 5,
+        "opacity": 0.65
     },
-    {
-      "title_field": "SITUAÇÃO",
-      "items": [
+    "popup": {
+        "title_field": "",
+        "title_icon": "",
+        "title_color": "",
+        "content": [
+            {
+                "color": "blue",
+                "data_field": "DATA DE NASCIMENTO",
+                "icon": "fa-award",
+                "title": "Idade",
+                "format": "age"
+            },
+            {
+                "color": "blue",
+                "data_field": "SEXO",
+                "icon": "fa-venus-mars",
+                "title": "Sexo"
+            },
+            {
+                "color": "blue",
+                "data_field": "CONTATOS",
+                "icon": "fa-people-arrows",
+                "title": "Contatos"
+            },
+            {
+                "color": "blue",
+                "data_field": "PROFISSIONAL DA SAÚDE",
+                "icon": "fa-user-md",
+                "title": "Profissional da Saúde"
+            }
+        ]
+    },
+    "tables": [
         {
-          "value": "Domicílio",
-          "icon": "fa-home"
+            "title_field": "STATUS",
+            "items": [
+                {
+                    "value": "Descartado",
+                    "color": "green"
+                },
+                {
+                    "value": "Suspeito",
+                    "color": "orange"
+                },
+                {
+                    "value": "Confirmado",
+                    "color": "red"
+                }
+            ]
         },
         {
-          "value": "Curado",
-          "icon": "fa-heart"
-        },
-        {
-          "value": "Internado",
-          "icon": "fa-hospital-alt"
-        },
-        {
-          "value": "UTI",
-          "icon": "fa-procedures"
-        },
-        {
-          "value": "Óbito",
-          "icon": "fa-cross"
+            "title_field": "SITUAÇÃO",
+            "items": [
+                {
+                    "value": "Residência",
+                    "icon": "fa-home"
+                },
+                {
+                    "value": "Alta",
+                    "icon": "fa-heart"
+                },
+                {
+                    "value": "Internado",
+                    "icon": "fa-procedures"
+                },
+                {
+                    "value": "Óbito",
+                    "icon": "fa-cross"
+                }
+            ]
         }
-      ]
+    ],
+    "marker": {
+        "location_field": "ENDEREÇO",
+        "color": ["tables", 0],
+        "icon": ["tables", 1]
     }
-  ],
-  "marker": {
-    "location_field": "ENDEREÇO",
-    "color": ["tables", 0],
-    "icon": ["tables", 1]
-  }
 }
