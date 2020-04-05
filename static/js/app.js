@@ -22,12 +22,12 @@
     },
 
     createMap() {
-      if (data.hasOwnProperty('map')) data.map.base.remove()
-      let base = L.map('map'),
+      if (data.hasOwnProperty('map')) data.map.remove()
+      let map = L.map('map'),
         tile = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
           attribution: '<a href="https://www.esri.com/">ESRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(base)
-      return {'base': base, 'tile': tile}
+        }).addTo(map)
+      return map 
     },
 
     format(item, format) {
@@ -87,8 +87,8 @@
     renderHeatLayer(heatpoints) {
       let overlay = {}
       overlay[data.heat_layer] = L.heatLayer(heatpoints, {'radius': 50, 'minOpacity': 0.5})
-      data.map.base.addLayer(overlay[data.heat_layer])
-      L.control.layers(null, overlay).addTo(data.map.base)
+      data.map.addLayer(overlay[data.heat_layer])
+      L.control.layers(null, overlay).addTo(data.map)
     },
 
     renderTables() {
@@ -124,7 +124,7 @@
       return tables
     },
 
-    plotData(sheet, map, filters) {
+    plotData(sheet, filters) {
       return new Promise((resolve, reject) => {
         let results = document.getElementById('results'),
           count = document.getElementById('count'),
@@ -197,13 +197,13 @@
                 })
                 if (marker_color.color !== 'black') {
                   heatpoints.push([results.results[0].latlng.lat, results.results[0].latlng.lng, marker_color.weight])
-                  L.marker(results.results[0].latlng, {'icon': icon}).addTo(map.base)
+                  L.marker(results.results[0].latlng, {'icon': icon}).addTo(data.map)
                     .bindPopup(popup_template)
                     .on('mouseover', function(e) {
                       this.openPopup()
                     })
                     .on('click', function(e) {
-                      map.base.flyTo(results.results[0].latlng, 18)
+                      data.map.flyTo(results.results[0].latlng, 18)
                       this.openPopup()
                     })
                 }
@@ -215,21 +215,21 @@
       })
     },
 
-    setBoundries(map) {
+    setBoundries() {
       fetch('static/js/city.geojson')
         .then(response => response.json())
         .then(json => {
-          let geojson = L.geoJSON(json, {style: data.boundries_style}).addTo(map.base);
-          map.base.fitBounds(geojson.getBounds());
+          let geojson = L.geoJSON(json, {style: data.boundries_style}).addTo(data.map);
+          data.map.fitBounds(geojson.getBounds());
         })
     },
 
     projectData(filters) {
       data['map'] = createMap()
       getData(filters)
-        .then(sheet => plotData(sheet, data.map, filters))
+        .then(sheet => plotData(sheet, filters))
         .then(success => {
-          setBoundries(data.map)
+          setBoundries()
         })
     },
 
