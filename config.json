@@ -25,9 +25,9 @@
         "country": "Brasil"
     },
     "boundries_style": {
-        "color": "#00bc8c",
+        "color": "#d2141a",
         "fillOpacity": 0,
-        "opacity": 1,
+        "opacity": 0.85,
         "weight": 5
     },
     "popup": {

@@ -24,7 +24,7 @@
     createMap() {
       if (data.hasOwnProperty('map')) data.map.remove()
       const map = L.map('map'),
-        tile = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        tile = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
           attribution: '<a href="https://www.esri.com/">ESRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map)
       map.addControl(new L.Control.Fullscreen())
@@ -221,7 +221,7 @@
 
     setBoundries() {
       const url = new URL('https://nominatim.openstreetmap.org/search')
-      const params = new URLSearchParams('format=geojson&polygon_geojson=1')
+      const params = new URLSearchParams('limit=1&format=geojson&polygon_geojson=1')
       Object.keys(data.boundries).forEach(d => params.append(d, data.boundries[d]))
       url.search = params
       fetch(url.toString())
