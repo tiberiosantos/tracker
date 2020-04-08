@@ -3,14 +3,14 @@
 
   let data = 'config.json'
 
-  let methods = {
+  const methods = {
     collapse(elm, cmd) {
-      const selector = elm.getAttribute('data-target')
-      const fnmap = {
-        'toggle': 'toggle',
-        'show': 'add',
-        'hide': 'remove'
-      }
+      const selector = elm.getAttribute('data-target'),
+        fnmap = {
+          'toggle': 'toggle',
+          'show': 'add',
+          'hide': 'remove'
+        }
 
       const collapser = (selector, cmd) => {
         const targets = Array.from(document.querySelectorAll(selector))
@@ -23,10 +23,11 @@
 
     createMap() {
       if (data.hasOwnProperty('map')) data.map.remove()
-      let map = L.map('map'),
-        tile = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+      const map = L.map('map'),
+        tile = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
           attribution: '<a href="https://www.esri.com/">ESRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map)
+      map.addControl(new L.Control.Fullscreen())
       return map 
     },
 
@@ -84,9 +85,11 @@
       filters.innerHTML = template
     },
 
-    renderHeatLayer(heatpoints) {
+    renderLayers(markers, heatpoints) {
       let overlay = {}
+      overlay[data.markers_layer] = markers
       overlay[data.heat_layer] = L.heatLayer(heatpoints, {'radius': 50, 'minOpacity': 0.5})
+      data.map.addLayer(overlay[data.markers_layer])
       data.map.addLayer(overlay[data.heat_layer])
       L.control.layers(null, overlay).addTo(data.map)
     },
@@ -129,6 +132,7 @@
         let results = document.getElementById('results'),
           count = document.getElementById('count'),
           tables = !filters && methods.renderTables(),
+          markers = L.layerGroup(),
           heatpoints = []
 
         count.textContent = sheet.length
@@ -197,7 +201,7 @@
                 })
                 if (marker_color.color !== 'black') {
                   heatpoints.push([results.results[0].latlng.lat, results.results[0].latlng.lng, marker_color.weight])
-                  L.marker(results.results[0].latlng, {'icon': icon}).addTo(data.map)
+                  L.marker(results.results[0].latlng, {'icon': icon}).addTo(markers)
                     .bindPopup(popup_template)
                     .on('mouseover', function(e) {
                       this.openPopup()
@@ -210,13 +214,17 @@
               }
           })
         })
-        renderHeatLayer(heatpoints)
+        renderLayers(markers, heatpoints)
         resolve(true)
       })
     },
 
     setBoundries() {
-      fetch('static/js/city.geojson')
+      const url = new URL('https://nominatim.openstreetmap.org/search')
+      const params = new URLSearchParams('format=geojson&polygon_geojson=1')
+      Object.keys(data.boundries).forEach(d => params.append(d, data.boundries[d]))
+      url.search = params
+      fetch(url.toString())
         .then(response => response.json())
         .then(json => {
           let geojson = L.geoJSON(json, {style: data.boundries_style}).addTo(data.map);
