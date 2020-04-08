@@ -1,61 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="author" content="Tibério Augusto dos Santos">
-  <link rel="icon" href="static/img/favicon.png" type="image/png">
-  <title>Tracker</title>
-  <link rel="stylesheet" href="static/css/leaflet.css" charset="utf-8">
-  <link rel="stylesheet" href="static/css/leaflet.extra-markers.min.css" charset="utf-8">
-  <link rel="stylesheet" href="static/css/leaflet.fullscreen.css" charset="utf-8">
-  <link rel="stylesheet" href="static/css/fontawesome.min.css" charset="utf-8">
-  <link rel="stylesheet" href="static/css/solid.min.css" charset="utf-8">
-  <link rel="stylesheet" href="static/css/style.css" charset="utf-8">
-</head>
-<body>
-  <div id="app" class="container">
-    <h1><i class="orange fas fa-map-marked-alt"></i> Tracker</h1>
-    <div class="card">
-      <div class="navbar row">
-        <a id="panel" class="btn btn-blue" href="#" title="Filtros" data-target=".collapse.options" onclick="collapse(this, 'toggle')">
-          <i class="fas fa-filter"></i>
-        </a>
-      </div>
-      <div class="row navbar-light">
-        <div class="collapse options" id="options">
-          <form action="" method="post" onsubmit="filterData(this); return false">
-            <div id="filters" class="row"></div>
-            <div class="row">
-              <div class="column column-1 form-group">
-                <label for="filters">
-                  <span id="count"></span> Resultados Encontrados
-                </label>
-              </div>
-              <button class="btn" type="reset" title="Limpar" data-target=".collapse.options" onclick="projectData(true); collapse(this, 'toggle')">
-                <i class="fas fa-times"></i>
-              </button>
-              <button class="btn btn-blue" type="submit" title="Pesquisar">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="author" content="Tibério Augusto dos Santos" />
+    <link rel="icon" href="static/img/favicon.png" type="image/png" />
+    <title>Tracker</title>
+    <link rel="stylesheet" href="static/css/leaflet.css" charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="static/css/leaflet.extra-markers.min.css"
+      charset="utf-8"
+    />
+    <link
+      rel="stylesheet"
+      href="static/css/leaflet.fullscreen.css"
+      charset="utf-8"
+    />
+    <link
+      rel="stylesheet"
+      href="static/css/fontawesome.min.css"
+      charset="utf-8"
+    />
+    <link rel="stylesheet" href="static/css/solid.min.css" charset="utf-8" />
+    <link rel="stylesheet" href="static/css/style.css" charset="utf-8" />
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1><i class="orange fas fa-map-marked-alt"></i> Tracker</h1>
+      <div class="card">
+        <div class="navbar row">
+          <a
+            id="panel"
+            class="btn btn-blue"
+            href="#"
+            title="Filtros"
+            data-target=".collapse.options"
+            onclick="collapse(this, 'toggle')"
+          >
+            <i class="fas fa-filter"></i>
+          </a>
         </div>
-      </div>
-      <div class="row">
-        <div id="map" class="column column-4"></div>
-        <div id="results" class="column">
+        <div class="row navbar-light">
+          <div class="collapse options" id="options">
+            <form
+              action=""
+              method="post"
+              onsubmit="filterData(this); return false"
+            >
+              <div id="filters" class="row"></div>
+              <div class="row">
+                <div class="column column-1 form-group">
+                  <label for="filters">
+                    <span id="count"></span> Resultados Encontrados
+                  </label>
+                </div>
+                <button
+                  class="btn"
+                  type="reset"
+                  title="Limpar"
+                  data-target=".collapse.options"
+                  onclick="projectData(true); collapse(this, 'toggle')"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+                <button class="btn btn-blue" type="submit" title="Pesquisar">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div id="map" class="column column-4"></div>
+          <div id="results" class="column"></div>
         </div>
       </div>
     </div>
-  </div>
-  <script src="static/js/leaflet.min.js" charset="utf-8"></script>
-  <script src="static/js/leaflet.extra-markers.min.js" charset="utf-8"></script>
-  <script src="static/js/leaflet.fullscreen.min.js" charset="utf-8"></script>
-  <script src="static/js/leaflet-heat.min.js" charset="utf-8"></script>
-  <script src="static/js/esri-leaflet.min.js" charset="utf-8"></script>
-  <script src="static/js/esri-leaflet-geocoder.min.js" charset="utf-8"></script>
-  <script src="static/js/papaparse.min.js" charset="utf-8"></script>
-  <script src="static/js/app.js" charset="utf-8"></script>
-</body>
+    <script src="static/js/leaflet.min.js" charset="utf-8"></script>
+    <script
+      src="static/js/leaflet.extra-markers.min.js"
+      charset="utf-8"
+    ></script>
+    <script src="static/js/leaflet.fullscreen.min.js" charset="utf-8"></script>
+    <script src="static/js/leaflet-heat.min.js" charset="utf-8"></script>
+    <script src="static/js/esri-leaflet.min.js" charset="utf-8"></script>
+    <script
+      src="static/js/esri-leaflet-geocoder.min.js"
+      charset="utf-8"
+    ></script>
+    <script src="static/js/papaparse.min.js" charset="utf-8"></script>
+    <script src="static/js/app.js" charset="utf-8"></script>
+  </body>
 </html>

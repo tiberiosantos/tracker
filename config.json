@@ -1,113 +1,113 @@
 {
-    "report": "data/Relatório.csv",
-    "heat_layer": "Contaminações",
-    "markers_layer": "Pacientes",
-    "filters": [
-        {"DATA DA NOTIFICAÇÃO": "text"},
-        {"NÚMERO DA NOTIFICAÇÃO": "text"},
-        {"UNIDADE NOTIFICADORA": "text"},
-        {"DATA DO SINTOMA": "text"},
-        {"NOME": "text"},
-        {"DATA DE NASCIMENTO": "text"},
-        {"SEXO": ["Masculino", "Feminino"]},
-        {"ENDEREÇO": "text"},
-        {"MUNICÍPIO": "text"},
-        {"TELEFONE": "text"},
-        {"PROFISSIONAL DA SAÚDE": ["Sim", "Não"]},
-        {"COMORBIDADE": ["Sim", "Não"]},
-        {"CONTATOS": "text"},
-        {"STATUS": ["Suspeito", "Confirmado", "Descartado"]},
-        {"SITUAÇÃO": ["Residência", "Internado", "Alta", "Óbito"]}
-    ],
-    "boundries": {
-        "city": "Itapetininga",
-        "state": "São Paulo",
-        "country": "Brasil"
-    },
-    "boundries_style": {
-        "color": "#d2141a",
-        "fillOpacity": 0,
-        "opacity": 0.85,
-        "weight": 5
-    },
-    "popup": {
-        "title_field": "",
-        "title_icon": "",
-        "title_color": "",
-        "content": [
-            {
-                "color": "blue",
-                "data_field": "DATA DE NASCIMENTO",
-                "icon": "fa-award",
-                "title": "Idade",
-                "format": "age"
-            },
-            {
-                "color": "blue",
-                "data_field": "SEXO",
-                "icon": "fa-venus-mars",
-                "title": "Sexo"
-            },
-            {
-                "color": "blue",
-                "data_field": "CONTATOS",
-                "icon": "fa-people-arrows",
-                "title": "Contatos"
-            },
-            {
-                "color": "blue",
-                "data_field": "PROFISSIONAL DA SAÚDE",
-                "icon": "fa-user-md",
-                "title": "Profissional da Saúde"
-            }
-        ]
-    },
-    "tables": [
+  "report": "data/Relatório.csv",
+  "heat_layer": "Contaminações",
+  "markers_layer": "Pacientes",
+  "filters": [
+    { "DATA DA NOTIFICAÇÃO": "text" },
+    { "NÚMERO DA NOTIFICAÇÃO": "text" },
+    { "UNIDADE NOTIFICADORA": "text" },
+    { "DATA DO SINTOMA": "text" },
+    { "NOME": "text" },
+    { "DATA DE NASCIMENTO": "text" },
+    { "SEXO": ["Masculino", "Feminino"] },
+    { "ENDEREÇO": "text" },
+    { "MUNICÍPIO": "text" },
+    { "TELEFONE": "text" },
+    { "PROFISSIONAL DA SAÚDE": ["Sim", "Não"] },
+    { "COMORBIDADE": ["Sim", "Não"] },
+    { "CONTATOS": "text" },
+    { "STATUS": ["Suspeito", "Confirmado", "Descartado"] },
+    { "SITUAÇÃO": ["Residência", "Internado", "Alta", "Óbito"] }
+  ],
+  "boundries": {
+    "city": "Itapetininga",
+    "state": "São Paulo",
+    "country": "Brasil"
+  },
+  "boundries_style": {
+    "color": "#d2141a",
+    "fillOpacity": 0,
+    "opacity": 0.85,
+    "weight": 5
+  },
+  "popup": {
+    "title_field": "",
+    "title_icon": "",
+    "title_color": "",
+    "content": [
+      {
+        "color": "blue",
+        "data_field": "DATA DE NASCIMENTO",
+        "icon": "fa-award",
+        "title": "Idade",
+        "format": "age"
+      },
+      {
+        "color": "blue",
+        "data_field": "SEXO",
+        "icon": "fa-venus-mars",
+        "title": "Sexo"
+      },
+      {
+        "color": "blue",
+        "data_field": "CONTATOS",
+        "icon": "fa-people-arrows",
+        "title": "Contatos"
+      },
+      {
+        "color": "blue",
+        "data_field": "PROFISSIONAL DA SAÚDE",
+        "icon": "fa-user-md",
+        "title": "Profissional da Saúde"
+      }
+    ]
+  },
+  "tables": [
+    {
+      "title_field": "STATUS",
+      "items": [
         {
-            "title_field": "STATUS",
-            "items": [
-                {
-                    "value": "Descartado",
-                    "color": "green",
-                    "weight": 0.2
-                },
-                {
-                    "value": "Suspeito",
-                    "color": "orange",
-                    "weight": 0.8
-                },
-                {
-                    "value": "Confirmado",
-                    "color": "red",
-                    "weight": 1.0
-                }
-            ]
+          "value": "Descartado",
+          "color": "green",
+          "weight": 0.2
         },
         {
-            "title_field": "SITUAÇÃO",
-            "items": [
-                {
-                    "value": "Residência",
-                    "icon": "fa-home"
-                },
-                {
-                    "value": "Alta",
-                    "icon": "fa-heart"
-                },
-                {
-                    "value": "Internado",
-                    "icon": "fa-procedures"
-                },
-                {
-                    "value": "Óbito",
-                    "icon": "fa-cross"
-                }
-            ]
+          "value": "Suspeito",
+          "color": "orange",
+          "weight": 0.8
+        },
+        {
+          "value": "Confirmado",
+          "color": "red",
+          "weight": 1.0
         }
-    ],
-    "marker": {
-        "location_field": "ENDEREÇO",
-        "color": ["tables", 0],
-        "icon": ["tables", 1]
+      ]
+    },
+    {
+      "title_field": "SITUAÇÃO",
+      "items": [
+        {
+          "value": "Residência",
+          "icon": "fa-home"
+        },
+        {
+          "value": "Alta",
+          "icon": "fa-heart"
+        },
+        {
+          "value": "Internado",
+          "icon": "fa-procedures"
+        },
+        {
+          "value": "Óbito",
+          "icon": "fa-cross"
+        }
+      ]
     }
+  ],
+  "marker": {
+    "location_field": "ENDEREÇO",
+    "color": ["tables", 0],
+    "icon": ["tables", 1]
+  }
 }
