@@ -25,7 +25,7 @@
       if (data.hasOwnProperty("map")) data.map.remove();
       const map = L.map("map"),
         tile = L.tileLayer(
-          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
           {
             attribution:
               '&copy; <a href="https://www.esri.com/">ESRI</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -109,7 +109,7 @@
       overlay[data.heat_layer] = L.heatLayer(heatpoints, {
         radius: 40,
         minOpacity: 0.5,
-        maxZoom: 14
+        maxZoom: 14,
       });
       data.map.addLayer(overlay[data.markers_layer]);
       data.map.addLayer(overlay[data.heat_layer]);
