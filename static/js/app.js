@@ -25,10 +25,10 @@
       if (data.hasOwnProperty("map")) data.map.remove();
       const map = L.map("map"),
         tile = L.tileLayer(
-          "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
+          "https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png",
           {
             attribution:
-              '<a href="https://www.esri.com/">ESRI</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+              '&copy; <a href="https://www.esri.com/">ESRI</a>, &copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
           }
         ).addTo(map);
       map.addControl(new L.Control.Fullscreen());
@@ -104,8 +104,9 @@
       let overlay = {};
       overlay[data.markers_layer] = markers;
       overlay[data.heat_layer] = L.heatLayer(heatpoints, {
-        radius: 50,
+        radius: 40,
         minOpacity: 0.5,
+        maxZoom: 14
       });
       data.map.addLayer(overlay[data.markers_layer]);
       data.map.addLayer(overlay[data.heat_layer]);

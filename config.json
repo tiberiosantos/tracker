@@ -1,6 +1,6 @@
 {
   "report": "data/Relatório.csv",
-  "heat_layer": "Contaminações",
+  "heat_layer": "Risco de Infecção",
   "markers_layer": "Pacientes",
   "filters": [
     { "DATA DA NOTIFICAÇÃO": "text" },
@@ -69,7 +69,7 @@
         {
           "value": "Descartado",
           "color": "green",
-          "weight": 0.2
+          "weight": 0
         },
         {
           "value": "Suspeito",
