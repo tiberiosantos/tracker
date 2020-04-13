@@ -107,7 +107,7 @@
       overlay[data.heat_layer] = L.heatLayer(heatpoints, {
         radius: 40,
         minOpacity: 0.5,
-        maxZoom: 14,
+        maxZoom: 14
       });
       data.map.addLayer(overlay[data.markers_layer]);
       data.map.addLayer(overlay[data.heat_layer]);
