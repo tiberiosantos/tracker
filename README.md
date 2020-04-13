@@ -1,6 +1,4 @@
-<img width="180" src="https://github.com/tiberiosantos/tracker/raw/master/static/img/logo.png" />
-
-# Tracker
+<img width="341" src="https://github.com/tiberiosantos/tracker/raw/Itapetininga/static/img/logo.png" />
 
 Aplicação web que plota dados de um arquivo CSV para um mapa do OpenStreetMap, com suporte para  filtros e mapas de calor. As informações exibidas são configuradas através do arquivo `config.json`. O arquivo CSV pode estar localizado no próprio web-site ou em uma URL externa.
 
