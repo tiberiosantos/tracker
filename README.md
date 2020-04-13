@@ -1,4 +1,4 @@
-<img width="180" src="https://github.com/tiberiosantos/tracker/raw/master/static/img/favicon.png" />
+<img width="180" src="https://github.com/tiberiosantos/tracker/raw/master/static/img/logo.png" />
 
 # Tracker
 
