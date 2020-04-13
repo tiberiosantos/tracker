@@ -25,13 +25,11 @@
       if (data.hasOwnProperty("map")) data.map.remove();
       const map = L.map("map"),
         tile = L.tileLayer(
-          "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
+          "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
           {
             attribution:
               '&copy; <a href="https://www.esri.com/">ESRI</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            tileSize: 512,
-            maxZoom: 18,
-            zoomOffset: -1
+            maxZoom: 20
           }
         ).addTo(map);
       map.addControl(new L.Control.Fullscreen());
@@ -173,7 +171,7 @@
               `
               <p class="caption">
                 <i class="fas ${popup.title_icon} ${popup.title_color}"></i>
-                ${row[data.popup.title_field]}
+                ${row[popup.title_field]}
               </p>
             `
             }
