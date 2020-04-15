@@ -144,7 +144,7 @@
             <tfoot>
               <tr>
                 <th>Total</th>
-                <td id="total"></td>
+                <td><strong id="total"></strong></td>
               </tr>
             </tfoot>`;
         table = results.appendChild(table);
