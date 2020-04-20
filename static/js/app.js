@@ -116,6 +116,7 @@
 
     renderTables() {
       let tables = {};
+      results.innerHTML = '';
       data.tables.forEach((e) => {
         let table = document.createElement("table");
         table.innerHTML = `
@@ -157,7 +158,7 @@
       return new Promise((resolve, reject) => {
         let results = document.getElementById("results"),
           count = document.getElementById("count"),
-          tables = !filters && methods.renderTables(),
+          tables = methods.renderTables(),
           markers = L.layerGroup(),
           heatpoints = [];
 
