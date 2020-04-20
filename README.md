@@ -1,4 +1,4 @@
-<img width="341" src="https://github.com/tiberiosantos/tracker/raw/Itapetininga/static/img/logo.png" />
+<img width="180" src="https://github.com/tiberiosantos/tracker/raw/master/static/img/favicon.png" />
 
 Aplicação web que plota dados de um arquivo CSV para um mapa interativo do OpenStreetMap, com suporte para filtros, geocodificação e mapas de calor para determinar a magnitude do fenômeno observado. As informações exibidas são configuradas através do arquivo `config.json`. O arquivo CSV pode estar localizado no próprio web-site ou em uma URL externa.
 
