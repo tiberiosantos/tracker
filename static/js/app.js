@@ -29,7 +29,7 @@
           {
             attribution:
               '&copy; <a href="https://www.esri.com/">ESRI</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 20
+            maxZoom: 20,
           }
         ).addTo(map);
       map.addControl(new L.Control.Fullscreen());
@@ -90,11 +90,11 @@
             !(type instanceof Array)
               ? `<input id="${id}" type="text" name="${id}">`
               : `<select id="${id}" name="${id}">
-          <option value selected></option>
-          ${type
-            .map((item) => `<option value="${item}">${item}</option>`)
-            .join("")}
-          </select>`
+                  <option value selected></option>
+                  ${type
+                    .map((item) => `<option value="${item}">${item}</option>`)
+                    .join("")}
+                </select>`
           }
         </div>`;
       });
@@ -107,7 +107,7 @@
       overlay[data.heat_layer] = L.heatLayer(heatpoints, {
         radius: 40,
         minOpacity: 0.5,
-        maxZoom: 14
+        maxZoom: 14,
       });
       data.map.addLayer(overlay[data.markers_layer]);
       data.map.addLayer(overlay[data.heat_layer]);
@@ -116,7 +116,7 @@
 
     renderTables() {
       let tables = {};
-      results.innerHTML = '';
+      results.innerHTML = "";
       data.tables.forEach((e) => {
         let table = document.createElement("table");
         table.innerHTML = `
@@ -129,16 +129,13 @@
             <tbody>
             ${e.items
               .map(
-                (i) => `
-            <tr>
-              ${
-                i.color
-                  ? `<th class="${i.color}">${i.value}</th>`
-                  : `<th><i class="fas ${i.icon} blue"></i> ${i.value}</th>`
-              }
+                (i) => `<tr> ${
+                  i.color
+                    ? `<th class="${i.color}">${i.value}</th>`
+                    : `<th><i class="fas ${i.icon} blue"></i> ${i.value}</th>`
+                }
               <td id="${i.value}"></td>
-            </tr>
-          `
+            </tr>`
               )
               .join("")}
             </tbody>
@@ -154,10 +151,19 @@
       return tables;
     },
 
+    updateResult(tables, item, value) {
+      if (tables) {
+        ["#total", `#${value}`].forEach((el) => {
+          el = tables[item].querySelector(el);
+          el.textContent = (Number(el.textContent) || 0) + 1;
+        });
+      }
+      return true;
+    },
+
     plotData(sheet, filters) {
       return new Promise((resolve, reject) => {
-        let results = document.getElementById("results"),
-          count = document.getElementById("count"),
+        let count = document.getElementById("count"),
           tables = methods.renderTables(),
           markers = L.layerGroup(),
           heatpoints = [];
@@ -194,43 +200,21 @@
               .join("")}`;
 
           data.marker.icon.forEach((e) => (marker_icon = marker_icon[e]));
-          data.marker.color.forEach((e) => (marker_color = marker_color[e]));
-          marker_icon = marker_icon.items.filter((e) => {
-            if (row[marker_icon.title_field] == e.value) {
-              if (tables) {
-                let value = tables[marker_icon.title_field].querySelector(
-                    `#${e.value}`
-                  ),
-                  total = tables[marker_icon.title_field].querySelector(
-                    "#total"
-                  );
-                value.textContent = (Number(value.textContent) || 0) + 1;
-                total.textContent = (Number(total.textContent) || 0) + 1;
-              }
-              return true;
-            }
-            return false;
-          });
+          marker_icon = marker_icon.items.filter(
+            (e) =>
+              row[marker_icon.title_field] == e.value &&
+              updateResult(tables, marker_icon.title_field, e.value)
+          );
           marker_icon = marker_icon.length
             ? marker_icon.pop().icon
             : "fa-number";
 
-          marker_color = marker_color.items.filter((e) => {
-            if (row[marker_color.title_field] == e.value) {
-              if (tables) {
-                let value = tables[marker_color.title_field].querySelector(
-                    `#${e.value}`
-                  ),
-                  total = tables[marker_color.title_field].querySelector(
-                    "#total"
-                  );
-                value.textContent = (Number(value.textContent) || 0) + 1;
-                total.textContent = (Number(total.textContent) || 0) + 1;
-              }
-              return true;
-            }
-            return false;
-          });
+          data.marker.color.forEach((e) => (marker_color = marker_color[e]));
+          marker_color = marker_color.items.filter(
+            (e) =>
+              row[marker_color.title_field] == e.value &&
+              updateResult(tables, marker_color.title_field, e.value)
+          );
           marker_color = marker_color.length
             ? marker_color.pop()
             : { color: "black", weight: 0 };
@@ -290,7 +274,8 @@
         });
     },
 
-    projectData(filters) {
+    projectData(filters, options) {
+      options && collapse(options, "toggle");
       data["map"] = createMap();
       getData(filters)
         .then((sheet) => plotData(sheet, filters))
@@ -306,19 +291,19 @@
         if (e[1]) filters[e[0]] = e[1];
       });
       projectData(filters);
+      return false;
     },
 
-    init(scope) {
-      let self = this;
+    init() {
       fetch(data)
         .then((response) => response.json())
         .then((json) => {
-          Object.keys(methods).forEach((m) => (scope[m] = self[m]));
           data = json;
           projectData();
           renderFilters();
         });
     },
   };
-  return methods.init(this);
-}).call(this);
+  Object.assign(window, methods);
+  init();
+})();
