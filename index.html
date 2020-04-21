@@ -38,19 +38,15 @@
             class="btn btn-blue"
             href="#"
             title="Filtros"
-            data-target=".collapse.options"
+            data-target="#options"
             onclick="collapse(this, 'toggle')"
           >
             <i class="fas fa-filter"></i>
           </a>
         </div>
         <div class="row navbar-light">
-          <div class="collapse options" id="options">
-            <form
-              action=""
-              method="post"
-              onsubmit="filterData(this); return false"
-            >
+          <div class="collapse" id="options">
+            <form action="" method="post" onsubmit="return filterData(this)">
               <div id="filters" class="row"></div>
               <div class="row">
                 <div class="column column-1 form-group">
@@ -62,8 +58,8 @@
                   class="btn"
                   type="reset"
                   title="Limpar"
-                  data-target=".collapse.options"
-                  onclick="projectData(true); collapse(this, 'toggle')"
+                  data-target="#options"
+                  onclick="projectData(false, this)"
                 >
                   <i class="fas fa-times"></i>
                 </button>
