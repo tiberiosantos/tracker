@@ -93,6 +93,31 @@
         });
     },
 
+    renderData(result) {
+      return new Promise((resolve, reject) => {
+        let count = document.getElementById("count"),
+          tables = renderTables(),
+          markers = L.layerGroup(),
+          [marker_icon, marker_color] = [data, data],
+          heatpoints = [];
+        count.textContent = data.length;
+        data.map = createMap();
+        data.marker.icon.forEach((e) => (marker_icon = marker_icon[e]));
+        data.marker.color.forEach((e) => (marker_color = marker_color[e]));
+        result.forEach((bulk) => {
+          renderMarker(bulk, marker_icon, marker_color, tables)
+            .then((pointer) => {
+              pointer.marker.addTo(markers);
+              heatpoints.push([pointer.lat, pointer.lng, pointer.weight]);
+            });
+        });
+        renderLayers(markers, heatpoints);
+        setBoundries();
+        resolve(true);
+      });
+    },
+
+
     renderFilters() {
       let filters = document.getElementById("filters"),
         template = "";
@@ -242,32 +267,6 @@
       return true;
     },
 
-    renderData(result) {
-      return new Promise((resolve, reject) => {
-        let count = document.getElementById("count"),
-          tables = methods.renderTables(),
-          markers = L.layerGroup(),
-          [marker_icon, marker_color] = [data, data],
-          heatpoints = [];
-        count.textContent = data.length;
-        data.map = createMap();
-        data.marker.icon.forEach((e) => (marker_icon = marker_icon[e]));
-        data.marker.color.forEach((e) => (marker_color = marker_color[e]));
-        result.forEach((bulk) => {
-          methods
-            .renderMarker(bulk, marker_icon, marker_color, tables)
-            .then((pointer) => {
-              pointer.marker.addTo(markers);
-              heatpoints.push([pointer.lat, pointer.lng, pointer.weight]);
-            });
-        });
-        renderLayers(markers, heatpoints);
-        renderFilters();
-        setBoundries();
-        resolve(true);
-      });
-    },
-
     setBoundries() {
       const url = new URL("https://nominatim.openstreetmap.org/search");
       const params = new URLSearchParams(
@@ -308,6 +307,7 @@
         .then((json) => {
           data = json;
           projectData();
+          renderFilters();
         });
     },
   };
