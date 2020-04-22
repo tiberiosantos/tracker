@@ -99,20 +99,19 @@
       data.filters.forEach((filter) => {
         let id = Object.keys(filter).pop(),
           type = filter[id];
-        template += `
-        <div class="column column-1 form-group">
-          <label for="${id}">${id}</label>
-          ${
-            !(type instanceof Array)
-              ? `<input id="${id}" type="text" name="${id}">`
-              : `<select id="${id}" name="${id}">
-                  <option value selected></option>
-                  ${type
-                    .map((item) => `<option value="${item}">${item}</option>`)
-                    .join("")}
-                </select>`
-          }
-        </div>`;
+        template += `<div class="column column-1 form-group">
+          <label for="${id}">${id}</label>`;
+        if (type instanceof Array) {
+          template += `<select id="${id}" name="${id}">
+            <option value selected></option>`;
+          type.forEach(
+            (item) => (template += `<option value="${item}">${item}</option>`)
+          );
+          template += "</select>";
+        } else {
+          template += `<input id="${id}" type="text" name="${id}">`;
+        }
+        template += "</div>";
       });
       filters.innerHTML = template;
     },
@@ -170,24 +169,25 @@
       if (!icon || !color) return;
       return getLatLng(bulk[data.marker.location_field])
         .then((latlng) => {
+          const marker = L.marker(latlng, {
+            icon: L.ExtraMarkers.icon({
+              icon: icon,
+              markerColor: color.color,
+              prefix: "fas",
+            }),
+          })
+            .bindPopup(popup)
+            .on("mouseover", function (e) {
+              this.openPopup();
+            })
+            .on("click", function (e) {
+              data.map.flyTo(latlng, 18);
+              this.openPopup();
+            });
           return {
             lat: latlng.lat,
             lng: latlng.lng,
-            marker: L.marker(latlng, {
-              icon: L.ExtraMarkers.icon({
-                icon: icon,
-                markerColor: color.color,
-                prefix: "fas",
-              }),
-            })
-              .bindPopup(popup)
-              .on("mouseover", function (e) {
-                this.openPopup();
-              })
-              .on("click", function (e) {
-                data.map.flyTo(latlng, 18);
-                this.openPopup();
-              }),
+            marker: marker,
             weight: color.weight,
           };
         })
@@ -199,33 +199,33 @@
         tables = {};
       results.innerHTML = "";
       data.tables.forEach((e) => {
-        let table = document.createElement("table");
-        table.innerHTML = `
-            <thead>
-              <tr>
-                <th>${e.title_field}</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-            ${e.items
-              .map(
-                (i) => `<tr> ${
-                  i.color
-                    ? `<th class="${i.color}">${i.value}</th>`
-                    : `<th><i class="fas ${i.icon} blue"></i> ${i.value}</th>`
-                }
-              <td id="${i.value}"></td>
-            </tr>`
-              )
-              .join("")}
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>TOTAL</th>
-                <th id="total"></th>
-              </tr>
-            </tfoot>`;
+        let table = document.createElement("table"),
+          template = "";
+        template += `<thead>
+          <tr>
+            <th>${e.title_field}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>`;
+        e.items.forEach((i) => {
+          if (i.color) {
+            template += `<tr>
+              <th class="${i.color}">${i.value}</th>`;
+          } else {
+            template += `<tr>
+              <th><i class="fas ${i.icon} blue"></i> ${i.value}</th>`;
+          }
+          template += `<td id="${i.value}"></td></tr>`;
+        });
+        template += `</tbody>
+          <tfoot>
+            <tr>
+              <th>TOTAL</th>
+              <th id="total"></th>
+            </tr>
+          </tfoot>`;
+        table.innerHTML = template;
         table = results.appendChild(table);
         tables[e.title_field] = table;
       });
