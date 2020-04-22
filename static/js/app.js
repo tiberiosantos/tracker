@@ -53,9 +53,6 @@
     getData(filter) {
       return new Promise((resolve, reject) => {
         Papa.parse(data.report, {
-          downloadRequestHeaders: {
-            Origin: location.origin,
-          },
           download: true,
           header: true,
           skipEmptyLines: true,
@@ -75,6 +72,25 @@
           },
         });
       });
+    },
+
+    getLatLng(address) {
+      const url = new URL(
+        "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates"
+      );
+      const params = new URLSearchParams(
+        "?outSr=4326&forStorage=false&outFields=*&maxLocations=20&f=json"
+      );
+      params.append("singleLine", address);
+      url.search = params;
+      return fetch(url.toString())
+        .then((response) => response.json())
+        .then((json) => {
+          return {
+            lat: json.candidates[0].location.y,
+            lng: json.candidates[0].location.x,
+          };
+        });
     },
 
     renderFilters() {
@@ -114,8 +130,73 @@
       L.control.layers(null, overlay).addTo(data.map);
     },
 
+    renderPopup(bulk) {
+      let template = "";
+      if (data.popup.title_field) {
+        template += `<p class="caption">
+          <i class="fas ${data.popup.title_icon} ${data.popup.title_color}"></i>
+          ${bulk[data.popup.title_field]}
+        </p>`;
+      }
+      data.popup.content.forEach((item) => {
+        if (item.hasOwnProperty("format")) {
+          bulk[item.data_field] = methods.format(
+            bulk[item.data_field],
+            item.format
+          );
+        }
+        template += `<span>
+          <i class="fas ${item.icon} ${item.color}"></i>
+          <strong>${item.title}</strong>: ${bulk[item.data_field]}
+        </span><br>`;
+      });
+      return template;
+    },
+
+    renderMarker(bulk, marker_icon, marker_color, tables) {
+      let popup = renderPopup(bulk),
+        icon = marker_icon.items.filter(
+          (i) =>
+            bulk[marker_icon.title_field] == i.value &&
+            updateResult(tables, marker_icon.title_field, i.value)
+        ),
+        color = marker_color.items.filter(
+          (c) =>
+            bulk[marker_color.title_field] == c.value &&
+            updateResult(tables, marker_color.title_field, c.value)
+        );
+      icon = icon.length ? icon.pop().icon : false;
+      color = color.length ? color.pop() : false;
+      if (!icon || !color) return;
+      return getLatLng(bulk[data.marker.location_field])
+        .then((latlng) => {
+          return {
+            lat: latlng.lat,
+            lng: latlng.lng,
+            marker: L.marker(latlng, {
+              icon: L.ExtraMarkers.icon({
+                icon: icon,
+                markerColor: color.color,
+                prefix: "fas",
+              }),
+            })
+              .bindPopup(popup)
+              .on("mouseover", function (e) {
+                this.openPopup();
+              })
+              .on("click", function (e) {
+                data.map.flyTo(latlng, 18);
+                this.openPopup();
+              }),
+            weight: color.weight,
+          };
+        })
+        .catch((error) => error);
+    },
+
     renderTables() {
-      let tables = {};
+      let results = document.getElementById("results"),
+        tables = {};
       results.innerHTML = "";
       data.tables.forEach((e) => {
         let table = document.createElement("table");
@@ -161,96 +242,28 @@
       return true;
     },
 
-    plotData(sheet, filters) {
+    renderData(result) {
       return new Promise((resolve, reject) => {
         let count = document.getElementById("count"),
           tables = methods.renderTables(),
           markers = L.layerGroup(),
+          [marker_icon, marker_color] = [data, data],
           heatpoints = [];
-
-        count.textContent = sheet.length;
-        sheet.forEach((row) => {
-          let marker_icon = data,
-            marker_color = data,
-            popup = data.popup,
-            popup_template = `${
-              data.popup.title_field &&
-              `
-              <p class="caption">
-                <i class="fas ${popup.title_icon} ${popup.title_color}"></i>
-                ${row[popup.title_field]}
-              </p>
-            `
-            }
-            ${popup.content
-              .map((e) => {
-                if (e.hasOwnProperty("format")) {
-                  row[e.data_field] = methods.format(
-                    row[e.data_field],
-                    e.format
-                  );
-                }
-                return `
-              <span>
-                <i class="fas ${e.icon} ${e.color}"></i>
-                <strong>${e.title}</strong>: ${row[e.data_field]}
-              </span><br>
-              `;
-              })
-              .join("")}`;
-
-          data.marker.icon.forEach((e) => (marker_icon = marker_icon[e]));
-          marker_icon = marker_icon.items.filter(
-            (e) =>
-              row[marker_icon.title_field] == e.value &&
-              updateResult(tables, marker_icon.title_field, e.value)
-          );
-          marker_icon = marker_icon.length
-            ? marker_icon.pop().icon
-            : "fa-number";
-
-          data.marker.color.forEach((e) => (marker_color = marker_color[e]));
-          marker_color = marker_color.items.filter(
-            (e) =>
-              row[marker_color.title_field] == e.value &&
-              updateResult(tables, marker_color.title_field, e.value)
-          );
-          marker_color = marker_color.length
-            ? marker_color.pop()
-            : { color: "black", weight: 0 };
-
-          L.esri.Geocoding.geocode()
-            .text(row[data.marker.location_field])
-            .run((err, results, response) => {
-              if (err) {
-                return;
-              } else {
-                let icon = L.ExtraMarkers.icon({
-                  icon: marker_icon,
-                  markerColor: marker_color.color,
-                  prefix: "fas",
-                });
-                if (marker_color.color !== "black") {
-                  heatpoints.push([
-                    results.results[0].latlng.lat,
-                    results.results[0].latlng.lng,
-                    marker_color.weight,
-                  ]);
-                  L.marker(results.results[0].latlng, { icon: icon })
-                    .addTo(markers)
-                    .bindPopup(popup_template)
-                    .on("mouseover", function (e) {
-                      this.openPopup();
-                    })
-                    .on("click", function (e) {
-                      data.map.flyTo(results.results[0].latlng, 18);
-                      this.openPopup();
-                    });
-                }
-              }
+        count.textContent = data.length;
+        data.map = createMap();
+        data.marker.icon.forEach((e) => (marker_icon = marker_icon[e]));
+        data.marker.color.forEach((e) => (marker_color = marker_color[e]));
+        result.forEach((bulk) => {
+          methods
+            .renderMarker(bulk, marker_icon, marker_color, tables)
+            .then((pointer) => {
+              pointer.marker.addTo(markers);
+              heatpoints.push([pointer.lat, pointer.lng, pointer.weight]);
             });
         });
         renderLayers(markers, heatpoints);
+        renderFilters();
+        setBoundries();
         resolve(true);
       });
     },
@@ -276,12 +289,7 @@
 
     projectData(filters, options) {
       options && collapse(options, "toggle");
-      data["map"] = createMap();
-      getData(filters)
-        .then((sheet) => plotData(sheet, filters))
-        .then((success) => {
-          setBoundries();
-        });
+      getData(filters).then((result) => renderData(result));
     },
 
     filterData(form) {
@@ -300,7 +308,6 @@
         .then((json) => {
           data = json;
           projectData();
-          renderFilters();
         });
     },
   };
