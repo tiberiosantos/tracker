@@ -36,6 +36,16 @@
       return map;
     },
 
+    filterData(form) {
+      let filters = {};
+      form = new FormData(form);
+      Array.from(form.entries()).forEach((e) => {
+        if (e[1]) filters[e[0]] = e[1];
+      });
+      projectData(filters);
+      return false;
+    },
+
     format(item, format) {
       switch (format) {
         case "age":
@@ -93,6 +103,21 @@
         });
     },
 
+    init() {
+      fetch(data)
+        .then((response) => response.json())
+        .then((json) => {
+          data = json;
+          projectData();
+          renderFilters();
+        });
+    },
+
+    projectData(filters, options) {
+      options && collapse(options, "toggle");
+      getData(filters).then((result) => renderData(result));
+    },
+
     renderData(result) {
       return new Promise((resolve, reject) => {
         let count = document.getElementById("count"),
@@ -116,7 +141,6 @@
         resolve(true);
       });
     },
-
 
     renderFilters() {
       let filters = document.getElementById("filters"),
@@ -283,31 +307,6 @@
             data.map
           );
           data.map.fitBounds(geojson.getBounds());
-        });
-    },
-
-    projectData(filters, options) {
-      options && collapse(options, "toggle");
-      getData(filters).then((result) => renderData(result));
-    },
-
-    filterData(form) {
-      let filters = {};
-      form = new FormData(form);
-      Array.from(form.entries()).forEach((e) => {
-        if (e[1]) filters[e[0]] = e[1];
-      });
-      projectData(filters);
-      return false;
-    },
-
-    init() {
-      fetch(data)
-        .then((response) => response.json())
-        .then((json) => {
-          data = json;
-          projectData();
-          renderFilters();
         });
     },
   };
