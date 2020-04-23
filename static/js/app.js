@@ -125,7 +125,7 @@
           markers = L.layerGroup(),
           [marker_icon, marker_color] = [data, data],
           heatpoints = [];
-        count.textContent = data.length;
+        count.textContent = result.length;
         data.map = createMap();
         data.marker.icon.forEach((e) => (marker_icon = marker_icon[e]));
         data.marker.color.forEach((e) => (marker_color = marker_color[e]));
@@ -281,16 +281,6 @@
       return tables;
     },
 
-    updateResult(tables, item, value) {
-      if (tables) {
-        ["#total", `#${value}`].forEach((el) => {
-          el = tables[item].querySelector(el);
-          el.textContent = (Number(el.textContent) || 0) + 1;
-        });
-      }
-      return true;
-    },
-
     setBoundries() {
       const url = new URL("https://nominatim.openstreetmap.org/search");
       const params = new URLSearchParams(
@@ -308,6 +298,16 @@
           );
           data.map.fitBounds(geojson.getBounds());
         });
+    },
+
+    updateResult(tables, item, value) {
+      if (tables) {
+        ["#total", `#${value}`].forEach((el) => {
+          el = tables[item].querySelector(el);
+          el.textContent = (Number(el.textContent) || 0) + 1;
+        });
+      }
+      return true;
     },
   };
   Object.assign(window, methods);
