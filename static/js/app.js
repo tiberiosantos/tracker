@@ -49,7 +49,8 @@
     format(item, format) {
       switch (format) {
         case "age":
-          item = new Date(...item.split("/").map(Number).reverse());
+          const date = (year, month, day) => new Date(year, month, day)
+          item = date.apply(null, item.split("/").map(Number).reverse())
           today = new Date();
           return Math.floor(
             Math.ceil(
