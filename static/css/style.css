@@ -76,7 +76,7 @@ select {
   box-sizing: border-box;
 }
 #map {
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
   height: 80vh;
 }
 .btn {
