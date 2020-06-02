@@ -65,6 +65,10 @@ select:focus {
   outline: 0;
 }
 input[type="text"],
+img {
+  max-width: 100%;
+  margin-top: 0.5rem;
+}
 select {
   height: 38px;
   padding: 6px 10px;
@@ -134,6 +138,9 @@ select {
 .collapse.show {
   max-height: 99em;
   transition: max-height 0.5s ease-in-out;
+}
+.clear {
+  margin-left: auto;
 }
 .extra-marker .svg-inline--fa,
 .extra-marker i.fa,
