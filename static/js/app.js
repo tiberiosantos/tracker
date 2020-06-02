@@ -25,11 +25,12 @@
       if (data.hasOwnProperty("map")) data.map.remove();
       const map = L.map("map"),
         tile = L.tileLayer(
-          "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+          "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
           {
             attribution:
-              '&copy; <a href="https://www.esri.com/">ESRI</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 20,
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://www.esri.com/">ESRI</a>  &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19,
           }
         ).addTo(map);
       map.addControl(new L.Control.Fullscreen());

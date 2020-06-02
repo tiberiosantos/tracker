@@ -75,11 +75,8 @@ select {
   box-shadow: none;
   box-sizing: border-box;
 }
-img {
-  height: 60px;
-}
 #map {
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
   height: 80vh;
 }
 .btn {
