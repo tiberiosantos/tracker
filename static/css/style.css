@@ -64,7 +64,9 @@ select:focus {
   border: 1px solid #00bc8c;
   outline: 0;
 }
+input[type="date"],
 input[type="text"],
+input[type="tel"],
 select {
   height: 38px;
   padding: 6px 10px;
