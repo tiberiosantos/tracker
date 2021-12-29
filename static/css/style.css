@@ -59,7 +59,9 @@ legend {
   margin-bottom: 0.5rem;
   white-space: nowrap;
 }
+input[type="date"]:focus,
 input[type="text"]:focus,
+input[type="tel"]:focus,
 select:focus {
   border: 1px solid #00bc8c;
   outline: 0;
