@@ -154,12 +154,17 @@ const renderFilters = () => {
         (item) => (template += `<option value="${item}">${item}</option>`)
       );
       template += "</select>";
+    } else if (type == 'date') {
+      template += `<input id="${id}" type="text" name="${id}" placeholder="dd/mm/aaaa" onfocus="this.value = this.value.split('/').reverse().join('-'); this.type='date'" onblur="this.type='text'; this.value = this.value.split('-').reverse().join('/')">`;
+    } else if (type == 'tel') {
+      template += `<input id="${id}" type="${type}" name="${id}" placeholder="(00) 00000-0000" data-mask='["(##) ####-####", "(##) #####-####"]'>`;
     } else {
-      template += `<input id="${id}" type="text" name="${id}">`;
+      template += `<input id="${id}" type="${type}" name="${id}">`;
     }
     template += "</div>";
   });
   filters.innerHTML = template;
+  Maska.create('[type=tel]');
 };
 
 const renderLayers = (markers, heatpoints) => {

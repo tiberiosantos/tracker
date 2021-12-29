@@ -59,16 +59,20 @@ legend {
   margin-bottom: 0.5rem;
   white-space: nowrap;
 }
-input[type="text"]:focus,
-select:focus {
-  border: 1px solid #00bc8c;
-  outline: 0;
-}
-input[type="text"],
 img {
   max-width: 100%;
   margin-top: 0.5rem;
 }
+input[type="date"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+select:focus {
+  border: 1px solid #00bc8c;
+  outline: 0;
+}
+input[type="date"],
+input[type="text"],
+input[type="tel"],
 select {
   height: 38px;
   padding: 6px 10px;
